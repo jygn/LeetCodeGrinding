@@ -18,7 +18,7 @@ public class EasyProblems {
      * 
      * Time Complexity : O(n)
      */
-    public List<String> fizzBuzz(int n) {
+    public static List<String> fizzBuzz(int n) {
         
         ArrayList<String> fb = new ArrayList<String>();
         
@@ -43,7 +43,7 @@ public class EasyProblems {
      * 
      * Time Complexity : O(n+n) = O(2n) = O(n)
      */
-    public int firstUniqChar(String s) {
+    public static int firstUniqChar(String s) {
         
         int[] count = new int[26];
         int n = s.length();
@@ -94,18 +94,35 @@ public class EasyProblems {
         for (i = 0; i<arr.size(); i++) { // O(n)
             result[i] = arr.get(i); // arr.get -> O(1)
         }   
-
         return result;
-        
+    }
+
+    /**
+     * Write a function that reverses a string. The input string is given as an array of characters char[].
+     * Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+     * You may assume all the characters consist of printable ascii characters.
+     * 
+     * Time Complexity : O(n)
+    */ 
+    public static void reverseString(char[] s) {
+
+        int i = s.length-1;
+        int j = 0;
+        char tmp;
+        while (i >= j) {    // O(n)
+            // swap
+            tmp = s[i];
+            s[i--] = s[j];
+            s[j++] = tmp;
+        }
     }
 
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
-        intersect(new int[]{1,2,2,1},new int[]{2,2});
-        
-
+        // intersect(new int[]{1,2,2,1},new int[]{2,2});
+        reverseString(new char[]{'h', 'e', 'l', 'l', 'o'});
 
 
         long end = System.nanoTime();
