@@ -130,8 +130,30 @@ public class EasyProblems {
                 n /= 3;
             }
         }
-        
         return n == 1;
+    }
+
+    /**
+     * Given an array nums, write a function to move all 0's to the end of it while 
+     * maintaining the relative order of the non-zero elements.
+     * 
+     * Time complexity: O(n)
+     * 
+     * [0,1,0,3,12] -> [1,3,12,0,0]
+    */
+
+    public static void moveZeroes(int[] nums) {
+        int temp;
+        int j = 0;
+        for (int i = 0; i < nums.length; i++) { // O(n)
+            if (nums[i] != 0) {
+                // swap
+                temp = nums[j];
+                nums[j] = nums[i];
+                nums[i] = temp;
+                j++;
+            }
+        }
     }
 
     public static void main(String args[]) {
@@ -140,8 +162,8 @@ public class EasyProblems {
 
         // intersect(new int[]{1,2,2,1},new int[]{2,2});
         // reverseString(new char[]{'h', 'e', 'l', 'l', 'o'});
-        System.out.println(isPowerOfThree(45));
-
+        // System.out.println(isPowerOfThree(45));
+        moveZeroes(new int[]{0,1,0,3,12});
 
         long end = System.nanoTime();
         System.out.println("execution time : " + (end-start) + " ns");
