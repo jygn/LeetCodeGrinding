@@ -117,12 +117,30 @@ public class EasyProblems {
         }
     }
 
+    /**
+     * Given an integer n, return true if it is a power of three. Otherwise, return false.
+     * An integer n is a power of three, if there exists an integer x such that n == 3x.
+     * 
+     * Time complexity : O(n)
+     */
+    public static boolean isPowerOfThree(int n) {
+
+        if (n > 1) {
+            while (n % 3 == 0) {    // O(n)
+                n /= 3;
+            }
+        }
+        
+        return n == 1;
+    }
+
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
         // intersect(new int[]{1,2,2,1},new int[]{2,2});
-        reverseString(new char[]{'h', 'e', 'l', 'l', 'o'});
+        // reverseString(new char[]{'h', 'e', 'l', 'l', 'o'});
+        System.out.println(isPowerOfThree(45));
 
 
         long end = System.nanoTime();
