@@ -10,6 +10,8 @@ import java.util.Arrays;
  */
 public class EasyProblems {
 
+    private EasyProblems() {
+    }
 
     /**
      * Write a program that outputs the string representation of numbers from 1 to n.
@@ -156,16 +158,225 @@ public class EasyProblems {
         }
     }
 
+
+    /** 
+     * TODO https://leetcode.com/problems/convert-integer-to-the-sum-of-two-no-zero-integers/
+     * 
+     *  No-Zero integer is a positive integer that does not contain any 0 in its decimal representation.
+
+        Given an integer n, return a list of two integers [A, B] where:
+
+        A and B are No-Zero integers.
+        A + B = n
+        The test cases are generated so that there is at least one valid solution. If there are many valid solutions you can return any of them.
+
+        Constraints:
+            - 2 <= n <= 10^4
+     */
+    public static int[] getNoZeroIntegers(int n) {
+
+        return new int[2]; 
+    }
+
+
+
+    /**
+     * TODO Improve solution https://leetcode.com/problems/roman-to-integer/
+        Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
+
+        Symbol       Value
+        I             1
+        V             5
+        X             10
+        L             50
+        C             100
+        D             500
+        M             1000
+        For example, 2 is written as II in Roman numeral, just two one's added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
+
+        Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
+
+        I can be placed before V (5) and X (10) to make 4 and 9. 
+        X can be placed before L (50) and C (100) to make 40 and 90. 
+        C can be placed before D (500) and M (1000) to make 400 and 900.
+        Given a roman numeral, convert it to an integer.
+
+     */
+    public static int romanToInt(String s) {
+
+        int val = 0;
+        int i = 0;
+
+        char currChar;
+        char nextChar = 'Z';
+        String combinedChars;
+
+        while (i < s.length()) {
+            
+            currChar = s.charAt(i);
+
+            if (i < s.length() - 1) {
+                nextChar = s.charAt(i+1);
+            }
+
+            combinedChars = "" + currChar + nextChar;
+            
+            switch(combinedChars) {
+                case "IV":
+                    val+=4;
+                    i+=2;
+                    continue;
+                case "IX":
+                    val+=9;
+                    i+=2;
+                    continue;
+                case "XL":
+                    val+=40;
+                    i+=2;
+                    continue;
+                case "XC":
+                    val+=90;
+                    i+=2;
+                    continue;
+                case "CD":
+                    val+=400;
+                    i+=2;
+                    continue;
+                case "CM":
+                    val+=900;
+                    i+=2;
+                    continue;
+            }
+
+            switch(currChar) {
+                case 'I': 
+                    val++;
+                    i++;
+                    break;
+                case 'V':
+                    val+=5;
+                    i++;
+                    break;
+                case 'X':
+                    val+=10;
+                    i++;
+                    break;
+                case 'L':
+                    val+=50;
+                    i++;
+                    break;
+                case 'C':
+                    val+=100;
+                    i++;
+                    break;
+                case 'D':
+                    val+=500;
+                    i++;
+                    break;
+                case 'M':
+                    val+=1000;
+                    i++;
+                    break;
+                default:
+                    System.out.println("Character " + currChar + " is not valid");
+                    i = s.length();
+            }
+        }
+        
+        return val;
+    }
+
+
+    /**
+        TODO without converting to String https://leetcode.com/problems/palindrome-number/
+        Given an integer x, return true if x is palindrome integer.
+
+        An integer is a palindrome when it reads the same backward as forward.
+
+        For example, 121 is a palindrome while 123 is not.
+     */
+    public static boolean isPalindrome(int x) {
+
+        String numberString = x + "";
+
+        char leftChar;
+        char rightChar;
+    
+        for (int i = 0; i < numberString.length()/2; i++) { // O(n)
+
+            leftChar = numberString.charAt(i);  // O(1)
+            
+            rightChar = numberString.charAt(numberString.length()-1-i); // O(1) + O(1) = O(1)
+
+            if (leftChar != rightChar) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+        Write a function to find the longest common prefix string amongst an array of strings.
+
+        If there is no common prefix, return an empty string "".
+     */
+    public static String longestCommonPrefix(String[] strs) {
+
+        String commonPrefix = "";
+
+        if (strs.length == 0) {
+            return commonPrefix;
+        }
+
+        if (strs.length == 1) {
+            return strs[0];
+        }
+
+        String str1 = strs[0];
+        String str2;
+        char char1;
+        char char2;
+        int i = 1;
+        int j = 0;
+
+        while (true) {
+
+            str2 = strs[i++ % strs.length];
+
+            if (j >= str1.length() || j >= str2.length()) {
+                break;
+            }
+
+            char1 = str1.charAt(j);
+            char2 = str2.charAt(j);
+
+            
+            if (char1 != char2) {
+                return commonPrefix;
+            }
+
+            if (i == strs.length) {
+                commonPrefix+=char1;
+                j++;
+            }
+
+            i = (i % strs.length) + 1;
+        }
+
+        return commonPrefix;
+    }
+
+
+
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
-        // intersect(new int[]{1,2,2,1},new int[]{2,2});
-        // reverseString(new char[]{'h', 'e', 'l', 'l', 'o'});
-        // System.out.println(isPowerOfThree(45));
-        moveZeroes(new int[]{0,1,0,3,12});
+        System.out.println(longestCommonPrefix(new String[]{"flower","flow","flight"}));
 
         long end = System.nanoTime();
-        System.out.println("execution time : " + (end-start) + " ns");
+
+        System.out.println("execution time : " + (end-start)+ " ns");
     }
-}
+} 
