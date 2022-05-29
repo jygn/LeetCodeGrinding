@@ -368,12 +368,63 @@ public class EasyProblems {
     }
 
 
+    /**
+     * TODO correct solution : https://leetcode.com/problems/valid-parentheses/
+        Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+        An input string is valid if:
+
+            - Open brackets must be closed by the same type of brackets.
+            - Open brackets must be closed in the correct order.
+
+     */
+    public static boolean isValid(String s) {
+        
+        boolean openParenthesis = false;
+        boolean openBracket = false;
+        boolean openCrochet = false;
+
+        char currChar;
+
+        for (int i = 0; i < s.length(); i++) {
+
+            currChar = s.charAt(i);
+            
+            switch (currChar) {
+                case '(':
+                    openParenthesis = true;
+                    break;
+                case ')':
+                    openParenthesis = false;
+                    break;
+                case '{':
+                    openBracket = true;
+                    break;
+                case '}':
+                    openBracket = false;
+                    break;
+                case '[':
+                    openCrochet = true;
+                    break;
+                case ']':
+                    openCrochet = false;
+                    break;
+                default:
+                    System.out.println("invalid character" + s);
+                    return false;
+            }
+        }
+
+        return !(openParenthesis || openBracket || openCrochet);
+    }
+
+
 
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
-        System.out.println(longestCommonPrefix(new String[]{"flower","flow","flight"}));
+        System.out.println(isValid("([)]"));
 
         long end = System.nanoTime();
 
