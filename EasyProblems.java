@@ -418,13 +418,50 @@ public class EasyProblems {
         return !(openParenthesis || openBracket || openCrochet);
     }
 
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+ 
+    /**
+     * Given the root of a binary tree, return the inorder traversal of its nodes' values
+     */
+    public static List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
 
+        traversal(result, root);
+        return result;
+    }
+
+    private static void traversal(List<Integer> result, TreeNode node) {
+
+        if (node == null) {
+            return;
+        }
+
+        traversal(result, node.left);
+        result.add(node.val);
+        traversal(result, node.right);
+    }
 
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
-        System.out.println(isValid("([)]"));
+        TreeNode treeNode = new TreeNode(1);
+        treeNode.left = null;
+        treeNode.right = new TreeNode(2);
+        treeNode.right.left = new TreeNode(3);
+
+        System.out.println(inorderTraversal(treeNode));
 
         long end = System.nanoTime();
 
