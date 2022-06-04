@@ -455,43 +455,6 @@ public class EasyProblems {
         traversal(result, node.right);
     }
 
-    /** 
-     * 
-     * TODO https://leetcode.com/problems/remove-duplicates-from-sorted-array/
-        Given an integer array nums sorted in non-decreasing order, 
-        remove the duplicates in-place such that each unique element appears only once. 
-        The relative order of the elements should be kept the same.
-
-        Since it is impossible to change the length of the array in some languages, 
-        you must instead have the result be placed in the first part of the array nums. 
-        More formally, if there are k elements after removing the duplicates, 
-        then the first k elements of nums should hold the final result.
-        It does not matter what you leave beyond the first k elements.
-
-        Return k after placing the final result in the first k slots of nums.
-
-        Do not allocate extra space for another array. 
-        You must do this by modifying the input array in-place with O(1) extra memory.
-     */
-    public static int removeDuplicates(int[] nums) {
-        
-        int k = 0;
-
-        for (int i = nums.length-1; i > 0; i--) {
-
-            int current = nums[i];
-            int left = nums[i-1];
-
-            if (left == current) {
-                nums[i] = nums[i+1];
-                nums[i+1] = current;
-                k++;
-            }
-        }
-
-        return k;
-    }
-
     /**
      * TODO https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/ 
         Given an integer array nums where the elements are sorted in ascending order, 
@@ -502,32 +465,141 @@ public class EasyProblems {
      */
     public static TreeNode sortedArrayToBST(int[] nums) {
     
-        int midIndex = nums.length/2; 
+        // 1 2 3 4 5 6 7
+        int mid = nums.length/2; 
 
-        return new TreeNode();
+        TreeNode root = new TreeNode();
+        root.val = nums[mid];
+
+        root.left = new TreeNode();
+        root.left.val = nums[mid-1];
+
+        root.right = new TreeNode();
+        root.right.val = nums[mid+1];
+        
+        return root;
     }
 
-    private static void createBST(int[] nums, TreeNode tree, int i) {
+    /** 
+     * 
+        TODO https://leetcode.com/problems/greatest-common-divisor-of-strings/
+        For two strings s and t, we say "t divides s" if and only if s = t + ... + t (i.e., t is concatenated with itself one or more times).
 
-        if (i == nums.length) {
-            return;
+        Given two strings str1 and str2, return the largest string x such that x divides both str1 and str2.
+
+
+        O (n * n^(1/2)) --> O(n)
+     */
+    public static String gcdOfStrings(String str1, String str2) {
+
+        if (str1.equals(str2)) {    // O(n) todo remove?
+            return str1;
         }
 
+        
+        // str1 ABABAB , str2 ABAB
 
+        int str1Len = str1.length();
+        int str2Len = str2.length();
+
+
+        if (str1Len % str2Len == 0) {
+            
+        }
+
+        for (int i = 0; i < str1.length(); i++) {
+
+            
+
+        }
+
+        
+
+        String gcd = "";
+
+        
+
+
+        return gcd;
     }
 
+
+    /** 
+        A sentence is a list of words that are separated by a single space with no leading or trailing spaces. Each of the words consists of only uppercase and lowercase English letters (no punctuation).
+
+        For example, "Hello World", "HELLO", and "hello world hello world" are all sentences.
+        You are given a sentence s​​​​​​ and an integer k​​​​​​. You want to truncate s​​​​​​ such that it contains only the first k​​​​​​ words. Return s​​​​​​ after truncating it.
+    */
+    public static String truncateSentence(String s, int k) {
+
+        char c;
+        StringBuilder result = new StringBuilder(); // doesn't recreate string over and over in a loop
+        int spaceCount = 0;
+
+        for (int i = 0; i < s.length(); i++) {  // O(n)
+
+            c = s.charAt(i);    // O(1)
+
+            if (c == ' ') {
+                spaceCount++;
+            }
+
+            if (spaceCount == k) {
+                break;
+            }
+
+            result.append(c);   // O(1)
+        }
+
+        return result.toString();
+    }
+
+
+    // You are given an array of strings words (0-indexed).
+
+    // In one operation, pick two distinct indices i and j, where words[i] is a non-empty string, and move any character from words[i] to any position in words[j].
+
+    // Return true if you can make every string in words equal using any number of operations, and false otherwise.
+    public static boolean makeEqual(String[] words) {
+
+        StringBuilder wordsStr = new StringBuilder();
+
+        for (int i = 0; i < words.length; i++) { // O(n)
+
+            wordsStr.append(words[i]);  // O(1)
+        }
+
+        if (wordsStr.length() % words.length != 0) {
+            return false;
+        }
+
+        int[] charCount = new int[26];
+        char c;
+
+        for (int i = 0; i < wordsStr.length(); i++) {
+
+            c = wordsStr.charAt(i);
+
+            charCount[c - 'a']++;
+        }
+
+        for (int i = 0; i < charCount.length; i++) {
+
+            if (charCount[i] % words.length != 0) {
+                return false;
+            } 
+        }
+
+        return true;
+    }
+
+    
     public static void main(String args[]) {
 
         long start = System.nanoTime();
-        
-        int[] t = new int[]{0,0,1,1,1,2,2,3,3,4};
 
-        System.out.println(removeDuplicates(t));
+        System.out.println(makeEqual(new String[]{"abc", "aabc", "bc"}));
         
-        for (int i : t) {
-            System.out.print(i + ",");
-        }
-
         long end = System.nanoTime();
 
         System.out.println("execution time : " + (end-start)+ " ns");
