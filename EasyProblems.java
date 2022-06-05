@@ -1,6 +1,11 @@
 import java.util.List;
+import java.util.Map;
+
+import javax.xml.crypto.dsig.spec.HMACParameterSpec;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * Grinding easy problems and calculating the time complexity  
@@ -589,12 +594,84 @@ public class EasyProblems {
         return true;
     }
 
+
+    // Given a string s, return the length of the longest substring between two equal characters, excluding the two characters. If there is no such substring return -1.
+
+    // A substring is a contiguous sequence of characters within a string.
+
+    public static int maxLengthBetweenEqualCharacters(String s) {
+        
+        HashMap<Character, Integer> hashMap = new HashMap<>();
+        char c;
+        int max = -1;
+        
+        for (int i = 0; i < s.length(); i++) {
+
+            c = s.charAt(i);
+
+            if (hashMap.containsKey(c)) {
+
+                max = Math.max(max, i - 1 - hashMap.get(c));  
+
+            } else {
+
+                hashMap.put(c, i);
+            }
+        }
+
+        return max;
+    }
+
+
+    // Given a binary string s, return true if the longest contiguous segment of 1's is strictly longer than the longest contiguous segment of 0's in s, or return false otherwise.
+    // For example, in s = "110100010" the longest continuous segment of 1s has length 2, and the longest continuous segment of 0s has length 3.
+    // Note that if there are no 0's, then the longest continuous segment of 0's is considered to have a length 0. The same applies if there is no 1's
+    public static boolean checkZeroOnes(String s) {
+
+        if (s == '1' + "") {
+            return true;
+        }
+
+        char c1;
+        char c2;
+        int max0 = 0;
+        int max1 = 0;
+        int count = 1;
+
+        for (int i = 0; i < s.length(); i++) {
+
+            c1 = s.charAt(i);
+
+            if (c1 == '0' && max0 < count) {
+                max0 = count;
+            }
+
+            if (c1 == '1' && max1 < count) {
+                max1 = count;
+            }
+
+            if (i == s.length()-1) {
+                break;
+            }
+
+            c2 = s.charAt(i+1);
+
+            if (c1 != c2) {
+                count = 1;
+            } else {
+                count++;
+            }
+        }
+
+        return max1 > max0;
+    }
+
     
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
-        System.out.println(makeEqual(new String[]{"abc", "aabc", "bc"}));
+        System.out.println(checkZeroOnes("1101"));
         
         long end = System.nanoTime();
 
