@@ -666,12 +666,51 @@ public class EasyProblems {
         return max1 > max0;
     }
 
+
+    // You are given a 0-indexed string s that has lowercase English letters in its even indices and digits in its odd indices.
+
+    // There is a function shift(c, x), where c is a character and x is a digit, that returns the xth character after c.
+
+    // For example, shift('a', 5) = 'f' and shift('x', 0) = 'x'.
+    // For every odd index i, you want to replace the digit s[i] with shift(s[i-1], s[i]).
+
+    // Return s after replacing all digits. It is guaranteed that shift(s[i-1], s[i]) will never exceed 'z'.
+    public static String replaceDigits(String s) {
+
+        if (s.length() == 1) {
+            return s;
+        }
+
+        char c1;
+        char c2;
+
+        StringBuilder resut = new StringBuilder();
+
+        for (int i = 0; i < s.length()-1; i++) {
+
+            c1 = s.charAt(i);
+            c2 = s.charAt(i+1);
+
+            if (c2 >= 48 && c2 <= 57) {
+                resut.append(c1);
+                resut.append(shift(c1, c2));
+            } else if (i+1 == s.length()-1) {
+                resut.append(c2);
+            }
+        }
+
+        return resut.toString();
+    }
+
+    private static char shift(char c, char i) {
+        return (char) ((short) c + (i-48) % 123);
+    }
     
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
-        System.out.println(checkZeroOnes("1101"));
+        System.out.println(replaceDigits("a1b2c3d4e"));
         
         long end = System.nanoTime();
 
