@@ -706,11 +706,28 @@ public class EasyProblems {
         return (char) ((short) c + (i-48) % 123);
     }
     
+
+    // Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+
+    // You must implement a solution with a linear runtime complexity and use only constant extra space.
+    public static int singleNumber(int[] nums) {
+
+        int xor = 0;
+	
+        for (int i = 0; i < nums.length; i++) {
+    		xor ^= nums[i];
+        }
+
+        return xor;
+    } 
+    
+    
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
-        System.out.println(replaceDigits("a1b2c3d4e"));
+        int[] n = new int[]{2, 2, 1};
+        System.out.println(singleNumber(n));
         
         long end = System.nanoTime();
 
