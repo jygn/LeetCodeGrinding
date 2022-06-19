@@ -662,12 +662,62 @@ public class EasyProblems {
         return max1 > max0;
     }
 
+
+	// A binary tree is uni-valued if every node in the tree has the same value.
+
+	// Given the root of a binary tree, return true if the given tree is uni-valued, or false otherwise.
+	public static boolean isUnivalTree(TreeNode root) {
+		MutableBoolean isUnivalTree = new MutableBoolean(true);
+		isUnival(root, root.val, isUnivalTree);
+		return isUnivalTree.getValue();
+    }
+
+	private static void isUnival(TreeNode node, int rootVal, MutableBoolean isUnivalTree) {
+
+		if (node == null) {
+			return;
+		}
+
+		if (node.val != rootVal) {
+			isUnivalTree.setValue(false);
+			return;
+		}
+
+		isUnival(node.left, rootVal, isUnivalTree);
+		isUnival(node.right, rootVal, isUnivalTree);
+	}
+
+	private static class MutableBoolean {
+
+		private boolean value;
+
+		public MutableBoolean(boolean value) {
+			this.value = value;
+		}
+
+		public boolean getValue() {
+			return this.value;
+		}
+
+		public void setValue(boolean value) {
+			this.value = value;
+		}
+
+	}
+
     
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
-        System.out.println(checkZeroOnes("1101"));
+		TreeNode root = new TreeNode(1);
+		TreeNode chidl1 = new TreeNode(1);
+		TreeNode chidl2 = new TreeNode(1);
+		TreeNode chidl3 = new TreeNode(1);
+		root.left = chidl1;
+		root.left.right = chidl2;
+		root.right = chidl3;
+        System.out.println(isUnivalTree(root));
         
         long end = System.nanoTime();
 
