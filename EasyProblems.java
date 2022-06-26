@@ -1,8 +1,4 @@
 import java.util.List;
-import java.util.Map;
-
-import javax.xml.crypto.dsig.spec.HMACParameterSpec;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -667,67 +663,61 @@ public class EasyProblems {
     }
 
 
-    // You are given a 0-indexed string s that has lowercase English letters in its even indices and digits in its odd indices.
+	// A binary tree is uni-valued if every node in the tree has the same value.
 
-    // There is a function shift(c, x), where c is a character and x is a digit, that returns the xth character after c.
-
-    // For example, shift('a', 5) = 'f' and shift('x', 0) = 'x'.
-    // For every odd index i, you want to replace the digit s[i] with shift(s[i-1], s[i]).
-
-    // Return s after replacing all digits. It is guaranteed that shift(s[i-1], s[i]) will never exceed 'z'.
-    public static String replaceDigits(String s) {
-
-        if (s.length() == 1) {
-            return s;
-        }
-
-        char c1;
-        char c2;
-
-        StringBuilder resut = new StringBuilder();
-
-        for (int i = 0; i < s.length()-1; i++) {
-
-            c1 = s.charAt(i);
-            c2 = s.charAt(i+1);
-
-            if (c2 >= 48 && c2 <= 57) {
-                resut.append(c1);
-                resut.append(shift(c1, c2));
-            } else if (i+1 == s.length()-1) {
-                resut.append(c2);
-            }
-        }
-
-        return resut.toString();
+	// Given the root of a binary tree, return true if the given tree is uni-valued, or false otherwise.
+	public static boolean isUnivalTree(TreeNode root) {
+		MutableBoolean isUnivalTree = new MutableBoolean(true);
+		isUnival(root, root.val, isUnivalTree);
+		return isUnivalTree.getValue();
     }
 
-    private static char shift(char c, char i) {
-        return (char) ((short) c + (i-48) % 123);
-    }
-    
+	private static void isUnival(TreeNode node, int rootVal, MutableBoolean isUnivalTree) {
 
-    // Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+		if (node == null) {
+			return;
+		}
 
-    // You must implement a solution with a linear runtime complexity and use only constant extra space.
-    public static int singleNumber(int[] nums) {
+		if (node.val != rootVal) {
+			isUnivalTree.setValue(false);
+			return;
+		}
 
-        int xor = 0;
-	
-        for (int i = 0; i < nums.length; i++) {
-    		xor ^= nums[i];
-        }
+		isUnival(node.left, rootVal, isUnivalTree);
+		isUnival(node.right, rootVal, isUnivalTree);
+	}
 
-        return xor;
-    } 
-    
+	private static class MutableBoolean {
+
+		private boolean value;
+
+		public MutableBoolean(boolean value) {
+			this.value = value;
+		}
+
+		public boolean getValue() {
+			return this.value;
+		}
+
+		public void setValue(boolean value) {
+			this.value = value;
+		}
+
+	}
+
     
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
-        int[] n = new int[]{2, 2, 1};
-        System.out.println(singleNumber(n));
+		TreeNode root = new TreeNode(1);
+		TreeNode chidl1 = new TreeNode(1);
+		TreeNode chidl2 = new TreeNode(1);
+		TreeNode chidl3 = new TreeNode(1);
+		root.left = chidl1;
+		root.left.right = chidl2;
+		root.right = chidl3;
+        System.out.println(isUnivalTree(root));
         
         long end = System.nanoTime();
 
