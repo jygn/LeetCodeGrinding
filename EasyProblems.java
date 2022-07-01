@@ -1,7 +1,12 @@
 import java.util.List;
+import java.util.Map;
+
+import javax.print.attribute.standard.MediaSize.NA;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Grinding easy problems and calculating the time complexity  
@@ -705,19 +710,42 @@ public class EasyProblems {
 
 	}
 
-    
+    // Given an array of integers arr, replace each element with its rank.
+    // The rank represents how large the element is. The rank has the following rules:
+    // Rank is an integer starting from 1.
+    // The larger the element, the larger the rank. If two elements are equal, their rank must be the same.
+    // Rank should be as small as possible.
+    public static int[] arrayRankTransform(int[] arr) {
+
+        int [] arrCopy = Arrays.copyOf(arr, arr.length);
+        Arrays.sort(arrCopy); // O(nlgn)
+
+        Map<Integer, Integer> rankMap = new HashMap<>();
+        int rank[] = new int[arr.length];
+
+        int r = 1;
+        for (int i = 0; i < arrCopy.length; i++) {
+            Integer v = rankMap.putIfAbsent(arrCopy[i], r);
+            if (v == null) {
+                r++;
+            }
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            rank[i] = rankMap.get(arr[i]);
+        }
+
+        return rank;
+    }
+
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
-		TreeNode root = new TreeNode(1);
-		TreeNode chidl1 = new TreeNode(1);
-		TreeNode chidl2 = new TreeNode(1);
-		TreeNode chidl3 = new TreeNode(1);
-		root.left = chidl1;
-		root.left.right = chidl2;
-		root.right = chidl3;
-        System.out.println(isUnivalTree(root));
+        int[] output = arrayRankTransform(new int[]{37,12,28,9,100,56,80,5,12});
+        for (int val: output) {
+            System.out.println(val);
+        }
         
         long end = System.nanoTime();
 
