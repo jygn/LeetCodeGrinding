@@ -738,15 +738,57 @@ public class EasyProblems {
         return rank;
     }
 
+    // In a binary tree, a lonely node is a node that is the only child of its parent node. The root of the tree is not lonely because it does not have a parent node.
+    // Given the root of a binary tree, return an array containing the values of all lonely nodes in the tree. Return the list in any order.
+    public static List<Integer> getLonelyNodes(TreeNode root) {
+        List<Integer> lonelyNodes = new ArrayList<>();
+        populateLonelyNodes(root, lonelyNodes);
+        return lonelyNodes;
+    }
+
+    private static void populateLonelyNodes(TreeNode node, List<Integer> lonelyNodes) {
+
+        if (node == null) {
+            return;
+        }
+
+        if (node.left == null && node.right != null) {
+            lonelyNodes.add(node.right.val);
+        }
+
+        if (node.right == null && node.left != null) {
+            lonelyNodes.add(node.left.val);
+        }
+
+        populateLonelyNodes(node.left, lonelyNodes);
+        populateLonelyNodes(node.right, lonelyNodes);
+    } 
+
+    // You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
+    // Merge nums1 and nums2 into a single array sorted in non-decreasing order.
+    // The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+
+        /*
+        for  
+
+         */
+
+        
+    }
+
+
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
-        int[] output = arrayRankTransform(new int[]{37,12,28,9,100,56,80,5,12});
-        for (int val: output) {
-            System.out.println(val);
-        }
         
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.right = new TreeNode(4);
+
+        System.out.println(getLonelyNodes(root));
         long end = System.nanoTime();
 
         System.out.println("execution time : " + (end-start)+ " ns");
