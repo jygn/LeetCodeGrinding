@@ -702,22 +702,55 @@ public class EasyProblems {
 		public void setValue(boolean value) {
 			this.value = value;
 		}
-
 	}
 
-    
+    public static class ListNode {
+        int val;
+        ListNode next;
+        ListNode() {}
+        ListNode(int val) { this.val = val; }
+        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    }
+ 
+    public static int getDecimalValue(ListNode head) {
+        int decimalVal = 0;
+        while(head != null) {
+            decimalVal = (decimalVal << 1) | head.val;
+            head = head.next;
+        }
+        return decimalVal;
+    }   
+
+    // Given the root of a binary tree and an integer targetSum, 
+    // return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.
+    // A leaf is a node with no children.
+    public static boolean hasPathSum(TreeNode root, int targetSum) {
+        return calculateSumToLeaf(root, 0, targetSum);
+    }
+
+    private static boolean calculateSumToLeaf(TreeNode node, int sumToLeaf, int targetSum) {
+        if (node == null)
+            return false;
+
+        sumToLeaf += node.val;
+
+        if (node.left == null && node.right == null) {
+            if (sumToLeaf == targetSum) 
+                return true;
+        
+            return false; 
+        } 
+        return calculateSumToLeaf(node.left, sumToLeaf, targetSum) 
+            || calculateSumToLeaf(node.right, sumToLeaf, targetSum);
+    }
+
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
-		TreeNode root = new TreeNode(1);
-		TreeNode chidl1 = new TreeNode(1);
-		TreeNode chidl2 = new TreeNode(1);
-		TreeNode chidl3 = new TreeNode(1);
-		root.left = chidl1;
-		root.left.right = chidl2;
-		root.right = chidl3;
-        System.out.println(isUnivalTree(root));
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        System.out.println(hasPathSum(null, 0));
         
         long end = System.nanoTime();
 
