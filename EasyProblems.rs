@@ -8,14 +8,14 @@ pub fn buddy_strings(s: String, goal: String) -> bool {
   }
 
   let mut i = 1;
-  let mut s_bytes = s.as_bytes();
+  let mut s_bytes: Vec<char> = s.chars().collect();
 
   for b in s_bytes {
 
     println!("{:?}", s_bytes);
 
-    let old_b = b;
-    *b = s_bytes[i]; 
+    let old_b = &b;
+    *b = &s_bytes[i]; 
 
     
     println!("{:?}", s_bytes);
@@ -23,7 +23,7 @@ pub fn buddy_strings(s: String, goal: String) -> bool {
       return true;
     }
 
-    b = old_b;
+    *b = old_b;
 
     i += 1;
     if i > s_bytes.len() - 1 {
