@@ -803,34 +803,12 @@ public class EasyProblems {
         populateLonelyNodes(node.right, lonelyNodes);
     } 
 
-    // You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
-    // Merge nums1 and nums2 into a single array sorted in non-decreasing order.
-    // The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
-    public static void merge(int[] nums1, int m, int[] nums2, int n) {
-
-        /*
-        for  
-
-         */
-
-        
-    }
-
 
     public static void main(String args[]) {
 
         long start = System.nanoTime();
 
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(2);
-        System.out.println(hasPathSum(null, 0));
-        
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(2);
-        root.right = new TreeNode(3);
-        root.left.right = new TreeNode(4);
-
-        System.out.println(getLonelyNodes(root));
+        System.out.println(countCharacters(new String[]{"cat","bt","hat","tree"}, "atach"));
         long end = System.nanoTime();
 
         System.out.println("execution time : " + (end-start)+ " ns");
