@@ -31,36 +31,47 @@ fn swap(s: &str, from_idx: usize, to_idx: usize) -> String {
 }
 
 // Given an integer array nums, find three numbers whose product is maximum and return the maximum product.
-// todo 
 pub fn maximum_product(nums: Vec<i32>) -> i32 {
     let mut max1:Option<i32> = None;
-    let mut max2:Option<i32> = None;
-    let mut max3:Option<i32> = None;
+    let mut max2 = -1000; 
+    let mut max3 = -1000; 
     let mut min1:Option<i32> = None;
-    let mut min2:Option<i32> = None;
+    let mut min2 = 1000; 
 
     for n in nums {
         match max1 {
             Some(val) =>  { 
                 if val < n { 
                     max3 = max2;
-                    max2 = max1;
-                    max1 = Some(n);
-                } 
+                    max2 = max1.unwrap();
+                    max1 = Some(n)
+                } else if max2 < n {
+                    max3 = max2;
+                    max2 = n 
+                } else if max3 < n {
+                    max3 = n
+                }
             } 
-            None => { max1 = Some(n) }
+            None => { 
+                max1 = Some(n); 
+            }
         }
         match min1 {
             Some(val) => {
                 if val > n {
-                    min2 = min1;
+                    min2 = min1.unwrap();
                     min1 = Some(n);
+                } else if min2 > n {
+                    min2 = n;
                 }
             },
-            None => { min1 = Some(n) }
+            None => { 
+                min1 = Some(n); 
+            }
         }
     }
-    max(max3.unwrap()*max2.unwrap()*max1.unwrap(), max3.unwrap()*min2.unwrap()*min1.unwrap())
+    max(max3*max2*max1.unwrap(), 
+    max1.unwrap()*min2*min1.unwrap())
 }
 
   
@@ -80,5 +91,5 @@ fn f_deref() {
 
   
 fn main() {
-    println!("{}", maximum_product(vec![-1,-2,1,2,3])); 
+    println!("{}", maximum_product(vec![1,2,3])); 
 }
